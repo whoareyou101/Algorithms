@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+//Dynamic Programming - LCS
+//Question number 9251(LCS)
 public class Main {
 
 	public static void main(String[] args) {
