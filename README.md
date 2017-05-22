@@ -1,3 +1,7 @@
 #Algorithms
 # Algorithms
-# VersionCPT
+LCS
+Palindrome
+Permutation
+Recursive
+WalkWithBeer
