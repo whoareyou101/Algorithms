@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <malloc.h>
+
+typedef struct _node {
+	int item;
+	struct _node *next;
+}Node;
+
+typedef struct _queue {
+	Node *front;
+	Node *rear;
+	int cnt;
+}Queue;
+
+Queue *q;
+
+Queue* InitQueue() {
+	Queue *q = (Queue *)malloc(sizeof(Queue));
+	q->front = q->rear = NULL;
+	q->cnt = 0;
+	return q;
+}
+
+int IsEmpty(Queue *q) {
+	return (q->cnt == 0);
+}
+
+void Push(Queue *q, int x) {
+	Node* tmp = (Node*)malloc(sizeof(Node));
+	tmp->item = x;
+	tmp->next = NULL;
+
+	if (IsEmpty(q)) {
+		q->front = tmp;
+	}
+	else {
+		q->rear->next = tmp;
+	}
+	q->rear = tmp;
+	q->cnt++;
+}
+
+int Pop(Queue *q) {
+	if (IsEmpty(q)) {
+		return -1;
+	}
+	Node *tmp = q->front;
+	int res = q->front->item;
+	q->front = tmp->next;
+	free(tmp);
+	q->cnt--;
+	return res;
+}
+
+int Size(Queue *q) {
+	return q->cnt;
+}
+
+int Front(Queue *q) {
+	if(IsEmpty(q)) {
+		return -1;
+	}
+	return q->front->item;
+}
+
+int Back(Queue *q) {
+	if (IsEmpty(q)) {
+		return -1;
+	}
+	return q->rear->item;
+}
+
+void func(Queue *q, char *str) {
+	int n;
+
+	switch (str[1]) {
+	case 'u'://push
+		scanf("%d", &n);
+		Push(q, n);
+		break;
+	case 'o'://pop
+		printf("%d\n", Pop(q));
+		break;
+	case 'i'://size
+		printf("%d\n", Size(q));
+		break;
+	case 'm'://empty
+		printf("%d\n", IsEmpty(q));
+		break;
+	case 'r': //front
+		printf("%d\n", Front(q));
+		break;
+	case 'a': //back
+		printf("%d\n", Back(q));
+		break;
+	}
+}
+
+int main(void) {
+	int N;
+	char str[6];
+	q = InitQueue();
+
+	scanf("%d", &N);
+	while(N>0){
+		scanf("%s", str);
+		func(q, str);
+		N--;
+	}
+	return 0;
+}
